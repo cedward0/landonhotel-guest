@@ -7,6 +7,10 @@
         <option value="$PROJECT_DIR$/guest-services/pom.xml" />
         <option value="$PROJECT_DIR$/hello-service/pom.xml" />
         <option value="$PROJECT_DIR$/config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
+        <option value="$PROJECT_DIR$/reservation-services/pom.xml" />
+        <option value="$PROJECT_DIR$/room-reservation-service/pom.xml" />
+        <option value="$PROJECT_DIR$/room-services/pom.xml" />
       </list>
     </option>
   </component>

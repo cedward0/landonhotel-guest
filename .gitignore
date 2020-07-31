@@ -1,7 +1,10 @@
 # Project exclude paths
 /.idea/
-/config/
 /config-server/target
+/eureka-server/target
 /guest-app/target
 /guest-services/target
 /hello-service/target
+/reservation-services/target
+/room-reservation-service/target
+/room-services/target

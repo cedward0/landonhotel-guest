@@ -4,9 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/config/config.iml" filepath="$PROJECT_DIR$/config/config.iml" />
       <module fileurl="file://$PROJECT_DIR$/config-server/config-server.iml" filepath="$PROJECT_DIR$/config-server/config-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/guest-app/guest-app.iml" filepath="$PROJECT_DIR$/guest-app/guest-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/guest-services/guest-services.iml" filepath="$PROJECT_DIR$/guest-services/guest-services.iml" />
       <module fileurl="file://$PROJECT_DIR$/hello-service/hello-service.iml" filepath="$PROJECT_DIR$/hello-service/hello-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/reservation-services/reservation-services.iml" filepath="$PROJECT_DIR$/reservation-services/reservation-services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/room-reservation-service/room-reservation-service.iml" filepath="$PROJECT_DIR$/room-reservation-service/room-reservation-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/room-services/room-services.iml" filepath="$PROJECT_DIR$/room-services/room-services.iml" />
     </modules>
   </component>
 </project>
