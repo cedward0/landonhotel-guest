@@ -22,9 +22,9 @@
       <module name="guest-app" target="1.8" />
       <module name="guest-services" target="1.8" />
       <module name="hello-service" target="1.8" />
-      <module name="reservation-services" target="11" />
-      <module name="room-reservation-service" target="11" />
-      <module name="room-services" target="11" />
+      <module name="reservation-services" target="1.8" />
+      <module name="room-reservation-service" target="1.8" />
+      <module name="room-services" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

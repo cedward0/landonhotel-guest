@@ -1,18 +1,19 @@
 package com.frankmoley.lil.roomreservationservice;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping("/room-reservations")
@@ -20,22 +21,38 @@ public class RoomReservationWebService {
     private final RoomClient roomClient;
     private final GuestClient guestClient;
     private final ReservationClient reservationClient;
+    private final RestTemplate restTemplate;
 
+    public static final String RIBBON_URL_ROOMSERVICE_ROOM = "http://ROOMSERVICE/room";
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
-    public RoomReservationWebService(RoomClient roomClient, GuestClient guestClient, ReservationClient reservationClient){
-        super();
+    public RoomReservationWebService(RoomClient roomClient, GuestClient guestClient, ReservationClient reservationClient, RestTemplate restTemplate) {
         this.roomClient = roomClient;
         this.guestClient = guestClient;
         this.reservationClient = reservationClient;
+        this.restTemplate = restTemplate;
     }
 
     @GetMapping
-    public List<RoomReservation> getRoomReservations(@RequestParam(name = "date", required = false)String dateString){
+    public List<RoomReservation> getRoomReservations(@RequestParam(name = "date", required = false) String dateString) {
         Date date = createDateFromDateString(dateString);
         List<Room> rooms = this.roomClient.getAllRooms();
+        return getRoomReservations(date, rooms);
+    }
+
+    @GetMapping("/all")
+    public List<RoomReservation> getAllRoomReservations(@RequestParam(name = "date", required = false) String dateString) {
+        Date date = createDateFromDateString(dateString);
+        ResponseEntity<List<Room>> roomEntities = restTemplate
+                .exchange(RIBBON_URL_ROOMSERVICE_ROOM, HttpMethod.GET, null,
+                        new ParameterizedTypeReference<List<Room>>() {
+        });
+        return getRoomReservations(date, Optional.of(roomEntities).map(HttpEntity::getBody).orElse(Collections.emptyList()));
+    }
+
+    private ArrayList<RoomReservation> getRoomReservations(Date date, List<Room> rooms) {
         Map<Long, RoomReservation> roomReservations = new HashMap<>();
-        rooms.forEach(room->{
+        rooms.forEach(room -> {
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.setRoomId(room.getId());
             roomReservation.setRoomName(room.getName());
@@ -56,15 +73,15 @@ public class RoomReservationWebService {
     }
 
 
-    private Date createDateFromDateString(String dateString){
+    private Date createDateFromDateString(String dateString) {
         Date date = null;
-        if(null != dateString){
-            try{
+        if (null != dateString) {
+            try {
                 date = DATE_FORMAT.parse(dateString);
-            }catch(ParseException pe){
+            } catch (ParseException pe) {
                 date = new Date();
             }
-        }else{
+        } else {
             date = new Date();
         }
         return date;
