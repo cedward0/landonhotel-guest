@@ -2,6 +2,7 @@ package com.frankmoley.landon.security.helloservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableWebFluxSecurity
+@EnableDiscoveryClient
 public class HelloServiceApplication {
 
 	public static void main(String[] args) {
