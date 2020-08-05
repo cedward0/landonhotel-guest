@@ -14,9 +14,6 @@ import org.springframework.web.servlet.View;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-/**
- * @author Frank P. Moley III.
- */
 @Controller
 @RequestMapping("/")
 public class GuestController {
@@ -30,7 +27,6 @@ public class GuestController {
 
     @GetMapping(value={"/", "/index"})
     public String getHomePage(Model model){
-
         return "index";
     }
 

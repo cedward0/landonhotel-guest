@@ -18,13 +18,12 @@ import java.util.*;
 @RestController
 @RequestMapping("/room-reservations")
 public class RoomReservationWebService {
+    public static final String RIBBON_URL_ROOMSERVICE_ROOM = "http://ROOMSERVICE/room";
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     private final RoomClient roomClient;
     private final GuestClient guestClient;
     private final ReservationClient reservationClient;
     private final RestTemplate restTemplate;
-
-    public static final String RIBBON_URL_ROOMSERVICE_ROOM = "http://ROOMSERVICE/room";
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     public RoomReservationWebService(RoomClient roomClient, GuestClient guestClient, ReservationClient reservationClient, RestTemplate restTemplate) {
         this.roomClient = roomClient;
@@ -46,7 +45,7 @@ public class RoomReservationWebService {
         ResponseEntity<List<Room>> roomEntities = restTemplate
                 .exchange(RIBBON_URL_ROOMSERVICE_ROOM, HttpMethod.GET, null,
                         new ParameterizedTypeReference<List<Room>>() {
-        });
+                        });
         return getRoomReservations(date, Optional.of(roomEntities).map(HttpEntity::getBody).orElse(Collections.emptyList()));
     }
 
